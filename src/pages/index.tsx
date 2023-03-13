@@ -1,8 +1,10 @@
 import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const { data: sessionData, status: sessionStatus } = useSession();
+  const { replace } = useRouter();
 
   return (
     <div className="grid min-h-screen place-items-center bg-zinc-800 text-zinc-200">
@@ -27,7 +29,10 @@ const Home: NextPage = () => {
           <div className="flex flex-col gap-4">
             {sessionData ? (
               <>
-                <button className="rounded bg-zinc-200 py-2 font-cal-sans font-bold tracking-tight text-zinc-800 shadow">
+                <button
+                  className="rounded bg-zinc-200 py-2 font-cal-sans font-bold tracking-tight text-zinc-800 shadow"
+                  onClick={() => void replace("/list")}
+                >
                   {`Continue as ${sessionData.user.name}`}
                 </button>
                 <button
